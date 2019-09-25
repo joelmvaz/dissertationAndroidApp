@@ -8,80 +8,67 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/selectedfoodtext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="8dp"
+        android:id="@+id/accDta"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
         android:fontFamily="@font/muli_bold"
-        android:text="Chinese"
-        android:textSize="30sp"
-        app:layout_constraintHorizontal_bias="0.536"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo" />
+        android:text="@string/acceleration_value"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.014"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/accPlcHolder" />
+
+    <TextView
+        android:id="@+id/accPlcHolder"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="85dp"
+        android:fontFamily="@font/muli_bold"
+        android:text="@string/acceleration_placeholder"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.014"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <ImageView
-        android:id="@+id/logo"
+        android:id="@+id/imageView2"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="24dp"
-        android:contentDescription="Logo of the Application"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/logo_description"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.544"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.215"
         app:srcCompat="@drawable/dd_logo" />
 
-    <Button
-        android:id="@+id/decideBtn"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="0dp"
-        android:layout_height="45dp"
-        android:background="@color/colorPrimary"
+    <TextView
+        android:id="@+id/usrIdTxt"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="190dp"
         android:fontFamily="@font/muli_bold"
-        android:text="Decide!"
-        android:textColor="@android:color/background_light"
+        android:text="@string/user_id_placeholder"
+        android:textAlignment="center"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/addFoodText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:ems="10"
+    <TextView
+        android:id="@+id/usrId"
+        android:layout_width="100dp"
+        android:layout_height="25dp"
         android:fontFamily="@font/muli_bold"
-        android:hint="Add new food..."
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/addFoodBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/addFoodBtn"
-        android:layout_width="230dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="80dp"
-        android:background="@color/colorPrimary"
-        android:fontFamily="@font/muli_bold"
-        android:text="Add Food"
-        android:textColor="@android:color/background_light"
+        android:text="@string/user_id"
+        android:textAlignment="center"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/decideBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usrIdTxt" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
