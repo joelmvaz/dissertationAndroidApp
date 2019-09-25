@@ -5,4 +5,10 @@
     <string name="user_id">ID</string>
     <string name="acceleration_placeholder">Acceleration:</string>
     <string name="acceleration_value">Accelerometer Data</string>
+    <string name="rotation_placeholder">Rotation:</string>
+    <string name="rotation_value">Rotation Data</string>
+    <string name="gravity_placeholder">Gravity:</string>
+    <string name="gravity_value">Gravity Data</string>
+    <string name="magnetism_placeholder">Magnetic Field:</string>
+    <string name="magnetism_value">Magnetometer Data</string>
 </resources>
