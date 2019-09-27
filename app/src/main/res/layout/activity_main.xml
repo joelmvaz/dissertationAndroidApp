@@ -7,6 +7,36 @@
     android:background="@color/colorAccent"
     tools:context=".MainActivity">
 
+    <Button
+        android:id="@+id/btnUpdates"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:fontFamily="@font/muli_bold"
+        android:text="Get Location"
+        android:textColor="@android:color/background_light"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/gpsDta"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/gpsDta"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="120dp"
+        android:fontFamily="@font/muli_bold"
+        android:text="@string/gps_value"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.848"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/accDta"
         android:layout_width="200dp"
@@ -62,7 +92,7 @@
         android:id="@+id/accPlcHolder"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_marginTop="85dp"
+        android:layout_marginTop="100dp"
         android:fontFamily="@font/muli_bold"
         android:text="@string/acceleration_placeholder"
         android:textAlignment="center"
@@ -70,7 +100,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.014"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <TextView
         android:id="@+id/gravPlcHolder"
@@ -102,23 +132,24 @@
         android:id="@+id/rotPlcHolder"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_marginTop="85dp"
+        android:layout_marginTop="100dp"
         android:fontFamily="@font/muli_bold"
         android:text="@string/rotation_placeholder"
         android:textAlignment="center"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/accPlcHolder"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imageView"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
         android:contentDescription="@string/logo_description"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.111"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/dd_logo" />
@@ -127,12 +158,14 @@
         android:id="@+id/usrIdTxt"
         android:layout_width="100dp"
         android:layout_height="30dp"
-        android:layout_marginTop="190dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="30dp"
         android:fontFamily="@font/muli_bold"
         android:text="@string/user_id_placeholder"
         android:textAlignment="center"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.704"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -140,12 +173,13 @@
         android:id="@+id/usrId"
         android:layout_width="100dp"
         android:layout_height="25dp"
+        android:layout_marginStart="50dp"
         android:fontFamily="@font/muli_bold"
         android:text="@string/user_id"
         android:textAlignment="center"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.704"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usrIdTxt" />
 

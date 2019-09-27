@@ -11,4 +11,6 @@
     <string name="gravity_value">Gravity Data</string>
     <string name="magnetism_placeholder">Magnetic Field:</string>
     <string name="magnetism_value">Magnetometer Data</string>
+    <string name="gps_value">Location Data</string>
+
 </resources>
