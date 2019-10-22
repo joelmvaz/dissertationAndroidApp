@@ -14,6 +14,9 @@ import android.view.View
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_main.*
+import android.database.sqlite.SQLiteDatabase
+import com.google.firebase.database.FirebaseDatabase
+
 
 class MainActivity : AppCompatActivity(), SensorEventListener {
 
@@ -38,6 +41,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                         "y = ${event.values[1]} m/s2\n" +
                         "z = ${event.values[2]} m/s2"
                 accDta.text = acceleration
+                saveData()
             }
 
             Sensor.TYPE_GYROSCOPE -> {
@@ -45,6 +49,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                         "y = ${event.values[1]} rad/s \n" +
                         "z = ${event.values[2]} rad/s"
                 rotDta.text = rotation
+                saveData()
             }
             Sensor.TYPE_GRAVITY -> {
                 gravity = "x = ${event.values[0]} m/s\n" +
@@ -145,5 +150,17 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         locationRequest.interval= 5000
         locationRequest.fastestInterval= 3000
         locationRequest.smallestDisplacement= 10f
+    }
+
+    private fun saveData() {
+        val userId = uniqueUserId.toString()
+
+        val ref = FirebaseDatabase.getInstance().getReference("datalines")
+        val dataLineId = ref.push().key.toString()
+
+        val dataLine = DataLine(dataLineId, userId, acceleration, rotation)
+
+        ref.child(dataLineId).setValue(dataLine)
+
     }
 }
