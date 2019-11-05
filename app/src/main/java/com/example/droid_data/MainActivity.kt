@@ -61,7 +61,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                         "y = ${event.values[1]} m/s2\n" +
                         "z = ${event.values[2]} m/s2"
                 accDta.text = acceleration
-                //saveData()
             }
 
             Sensor.TYPE_GYROSCOPE -> {
@@ -69,7 +68,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                         "y = ${event.values[1]} rad/s \n" +
                         "z = ${event.values[2]} rad/s"
                 rotDta.text = rotation
-                //saveData()
             }
             Sensor.TYPE_GRAVITY -> {
                 gravity = "x = ${event.values[0]} m/s\n" +
