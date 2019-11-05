@@ -37,16 +37,18 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private var longitude= ""
     private var speed= ""
 
-    private var date = Date();
     private val formatter1 = SimpleDateFormat("dd-mm-yyyy")
-    private val formatter2 = SimpleDateFormat("HH:mm")
-    private val currentDate: String = formatter1.format(date)
-    private val currentTime: String = formatter2.format(date)
+    private val formatter2 = SimpleDateFormat("HH:mm:ss")
+    private var currentDate=""
+    private var currentTime=""
 
 
     private val handler = Handler()
     private val runnable = object : Runnable {
         override fun run() {
+            var date = Date()
+            currentDate = formatter1.format(date)
+            currentTime = formatter2.format(date)
             saveData()
             handler.postDelayed(this, 1000)
         }
