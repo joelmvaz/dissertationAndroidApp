@@ -16,10 +16,7 @@ import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_main.*
 import android.os.Handler
 import com.google.firebase.database.FirebaseDatabase
-import androidx.core.os.HandlerCompat.postDelayed
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -41,8 +38,11 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private var speed= ""
 
     private var date = Date();
-    private val formatter = SimpleDateFormat("dd-mm-yyyy HH:mm")
-    private val current: String = formatter.format(date)
+    private val formatter1 = SimpleDateFormat("dd-mm-yyyy")
+    private val formatter2 = SimpleDateFormat("HH:mm")
+    private val currentDate: String = formatter1.format(date)
+    private val currentTime: String = formatter2.format(date)
+
 
     private val handler = Handler()
     private val runnable = object : Runnable {
@@ -184,7 +184,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         val ref = FirebaseDatabase.getInstance().getReference("datalines")
         val dataLineId = ref.push().key.toString()
 
-        val dataLine = DataLine(dataLineId, userId, acceleration, rotation, latitude, longitude, speed, current)
+        val dataLine = DataLine(dataLineId, userId, acceleration, rotation, latitude,
+            longitude, speed, currentDate, currentTime)
 
         ref.child(dataLineId).setValue(dataLine)
     }
