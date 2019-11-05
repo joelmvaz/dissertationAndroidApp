@@ -14,8 +14,13 @@ import android.view.View
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_main.*
-import android.database.sqlite.SQLiteDatabase
+import android.os.Handler
 import com.google.firebase.database.FirebaseDatabase
+import androidx.core.os.HandlerCompat.postDelayed
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 
 class MainActivity : AppCompatActivity(), SensorEventListener {
@@ -31,6 +36,21 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private var rotation= ""
     private var gravity= ""
     private var magnet= ""
+    private var latitude= ""
+    private var longitude= ""
+    private var speed= ""
+
+    private var date = Date();
+    private val formatter = SimpleDateFormat("dd-mm-yyyy HH:mm")
+    private val current: String = formatter.format(date)
+
+    private val handler = Handler()
+    private val runnable = object : Runnable {
+        override fun run() {
+            saveData()
+            handler.postDelayed(this, 1000)
+        }
+    }
 
     override fun onSensorChanged(event: SensorEvent?) {
 
@@ -41,7 +61,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                         "y = ${event.values[1]} m/s2\n" +
                         "z = ${event.values[2]} m/s2"
                 accDta.text = acceleration
-                saveData()
+                //saveData()
             }
 
             Sensor.TYPE_GYROSCOPE -> {
@@ -49,7 +69,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                         "y = ${event.values[1]} rad/s \n" +
                         "z = ${event.values[2]} rad/s"
                 rotDta.text = rotation
-                saveData()
+                //saveData()
             }
             Sensor.TYPE_GRAVITY -> {
                 gravity = "x = ${event.values[0]} m/s\n" +
@@ -126,6 +146,9 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                 fusedLocationProviderClient.requestLocationUpdates(
                     locationRequest,
                     locationCallback, Looper.myLooper())
+
+                handler.postDelayed(runnable, 1000)
+
                 /* Change State of button*/
                 btnUpdates.isEnabled= !btnUpdates.isEnabled
             })
@@ -137,9 +160,12 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             override fun onLocationResult(p0: LocationResult?) {
                 /* Get Last Location*/
                 val location = p0!!.locations.get(p0!!.locations.size - 1)
-                gpsDta.text = "Latitude: " + location.latitude + "º\n" +
-                        "Longitude: " + location.longitude + "º\n" + "Speed: " +
-                        location.speed + "m/s\n"
+                latitude = location.latitude.toString()
+                longitude = location.longitude.toString()
+                speed = location.speed.toString()
+                gpsDta.text = "Latitude: " + latitude + "º\n" +
+                        "Longitude: " + longitude + "º\n" + "Speed: " +
+                        speed + "m/s\n"
             }
         }
     }
@@ -158,9 +184,10 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         val ref = FirebaseDatabase.getInstance().getReference("datalines")
         val dataLineId = ref.push().key.toString()
 
-        val dataLine = DataLine(dataLineId, userId, acceleration, rotation)
+        val dataLine = DataLine(dataLineId, userId, acceleration, rotation, latitude, longitude, speed, current)
 
         ref.child(dataLineId).setValue(dataLine)
-
     }
+
+
 }
