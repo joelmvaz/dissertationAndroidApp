@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private var longitude= ""
     private var speed= ""
     @SuppressLint("SimpleDateFormat")
-    private val formatter1 = SimpleDateFormat("dd-mm-yyyy")
+    private val formatter1 = SimpleDateFormat("dd-MM-yyyy")
     @SuppressLint("SimpleDateFormat")
     private val formatter2 = SimpleDateFormat("HH:mm:ss")
     private var currentDate= ""
