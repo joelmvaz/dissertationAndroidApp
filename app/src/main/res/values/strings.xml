@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">Driving Data Droid</string>
     <string name="logo_description">Logo of the application</string>
-    <string name="user_id_placeholder">User ID:</string>
+    <string name="user_id_placeholder">User ID</string>
+    <string name="updateData">Collect Data</string>
     <string name="user_id">ID</string>
     <string name="acceleration_placeholder">Acceleration:</string>
     <string name="acceleration_value">Accelerometer Data</string>
@@ -12,5 +13,6 @@
     <string name="magnetism_placeholder">Magnetic Field:</string>
     <string name="magnetism_value">Magnetometer Data</string>
     <string name="gps_value">Location Data</string>
+    <string name="driver_id">Insert id</string>
 
 </resources>

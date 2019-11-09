@@ -1,6 +1,7 @@
 package com.example.droid_data
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.hardware.Sensor
@@ -15,20 +16,21 @@ import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_main.*
 import android.os.Handler
+import android.util.Log
+import android.widget.EditText
+import androidx.core.view.isInvisible
 import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 class MainActivity : AppCompatActivity(), SensorEventListener {
 
     private lateinit var sensorManager: SensorManager
-    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-    lateinit var locationRequest: LocationRequest
-    lateinit var locationCallback: LocationCallback
-
+    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    private lateinit var locationRequest: LocationRequest
+    private lateinit var locationCallback: LocationCallback
+    private lateinit var uniqueUserId: EditText //Variable used to store user id
     private val requestCode= 1000
-    private var uniqueUserId= 1
     private var acceleration= ""
     private var rotation= ""
     private var gravity= ""
@@ -36,17 +38,18 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private var latitude= ""
     private var longitude= ""
     private var speed= ""
-
+    @SuppressLint("SimpleDateFormat")
     private val formatter1 = SimpleDateFormat("dd-mm-yyyy")
+    @SuppressLint("SimpleDateFormat")
     private val formatter2 = SimpleDateFormat("HH:mm:ss")
-    private var currentDate=""
-    private var currentTime=""
-
-
+    private var currentDate= ""
+    private var currentTime= ""
+    private var userId= ""
     private val handler = Handler()
+    
     private val runnable = object : Runnable {
         override fun run() {
-            var date = Date()
+            val date = Date()
             currentDate = formatter1.format(date)
             currentTime = formatter2.format(date)
             saveData()
@@ -89,13 +92,15 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         //Sets the user id
-        usrId.text= uniqueUserId.toString()
+        //User input id
+        //Value is saved and displayed
+        //Get location button enabled after user id input
+        uniqueUserId= findViewById(R.id.usrId)
 
         sensorManager= getSystemService(Context.SENSOR_SERVICE) as SensorManager
         sensorManager.registerListener(
@@ -149,8 +154,14 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
                 handler.postDelayed(runnable, 1000)
 
+                //Save user Input id
+                userId= uniqueUserId.toString()
+                Log.d(userId, "This is the stored User ID")
+                uniqueUserId.isEnabled= false
+
                 /* Change State of button*/
-                btnUpdates.isEnabled= !btnUpdates.isEnabled
+                btnUpdates.isEnabled= false
+                btnUpdates.isInvisible= true
             })
         }
     }
@@ -179,7 +190,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     }
 
     private fun saveData() {
-        val userId = uniqueUserId.toString()
+        //val userId = uniqueUserId.toString()
 
         val ref = FirebaseDatabase.getInstance().getReference("datalines")
         val dataLineId = ref.push().key.toString()
@@ -189,6 +200,4 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
         ref.child(dataLineId).setValue(dataLine)
     }
-
-
 }

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "644077547752",
+    "firebase_url": "https://datadroid-1ff68.firebaseio.com",
+    "project_id": "datadroid-1ff68",
+    "storage_bucket": "datadroid-1ff68.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:644077547752:android:23ee71fbd22067a207995d",
+        "android_client_info": {
+          "package_name": "com.example.droid_data"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "644077547752-0jp5qevk5ppmjik1hakg264h8nnpe3ek.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcSOucLeSt5ACLJJQ7Sa5td7pO_k5cBvg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "644077547752-0jp5qevk5ppmjik1hakg264h8nnpe3ek.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
