@@ -7,6 +7,23 @@
     android:background="@color/colorAccent"
     tools:context=".MainActivity">
 
+    <EditText
+        android:id="@+id/usrId"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="72dp"
+        android:ems="10"
+        android:fontFamily="@font/muli_bold"
+        android:hint="User id (1)"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.334"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/accDta"
         android:layout_width="200dp"
@@ -125,23 +142,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/usrId"
-        android:layout_width="145dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="170dp"
-        android:ems="10"
-        android:fontFamily="@font/muli_bold"
-        android:hint="@string/user_id_placeholder"
-        android:inputType="number"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usrIdBtn"
-        android:autofillHints="" />
 
     <TextView
         android:id="@+id/gpsDta"

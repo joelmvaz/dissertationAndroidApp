@@ -154,23 +154,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/dd_logo" />
 
-    <EditText
-        android:id="@+id/usrId"
-        android:layout_width="145dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="170dp"
-        android:layout_marginTop="45dp"
-        android:ems="10"
-        android:fontFamily="@font/muli_bold"
-        android:hint="@string/driver_id"
-        android:inputType="number"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:autofillHints="" tools:targetApi="o" />
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="150dp"
@@ -182,6 +165,23 @@
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/usrId"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/usrId"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="50dp"
+        android:ems="10"
+        android:fontFamily="@font/muli_bold"
+        android:hint="User id (1)"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.578"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

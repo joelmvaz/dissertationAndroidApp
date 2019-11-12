@@ -96,12 +96,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //Sets the user id
-        //User input id
-        //Value is saved and displayed
-        //Get location button enabled after user id input
         uniqueUserId= findViewById(R.id.usrId)
-
         sensorManager= getSystemService(Context.SENSOR_SERVICE) as SensorManager
         sensorManager.registerListener(
             this,
@@ -155,13 +150,13 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                 handler.postDelayed(runnable, 1000)
 
                 //Save user Input id
-                userId= uniqueUserId.toString()
-                Log.d(userId, "This is the stored User ID")
-                uniqueUserId.isEnabled= false
+                userId= uniqueUserId.text.toString()
+                println(userId)
 
                 /* Change State of button*/
                 btnUpdates.isEnabled= false
                 btnUpdates.isInvisible= true
+                usrId.isEnabled= false
             })
         }
     }
