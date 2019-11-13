@@ -19,7 +19,10 @@ import android.os.Handler
 import android.util.Log
 import android.widget.EditText
 import androidx.core.view.isInvisible
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -185,14 +188,36 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     }
 
     private fun saveData() {
-        //val userId = uniqueUserId.toString()
+        //if ID is empty
+        if(userId == ""){
+            userId = "00"
+        }
 
-        val ref = FirebaseDatabase.getInstance().getReference("datalines")
-        val dataLineId = ref.push().key.toString()
+        val ref = FirebaseDatabase.getInstance().getReference(userId)
+
+        var tripId = 1
+
+        ref.addValueEventListener(object: ValueEventListener{
+            override fun onDataChange(p0: DataSnapshot) {
+                if(p0!!.exists()){
+                    tripId = p0.children.count() + 1
+                }
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        })
+
+        val refDriver = FirebaseDatabase.getInstance().getReference(userId + "/" +tripId)
+
+        val dataLineId = refDriver.push().key.toString()
 
         val dataLine = DataLine(dataLineId, userId, acceleration, rotation, latitude,
             longitude, speed, currentDate, currentTime)
 
-        ref.child(dataLineId).setValue(dataLine)
+        refDriver.child(dataLineId).setValue(dataLine)
+
+
     }
 }
