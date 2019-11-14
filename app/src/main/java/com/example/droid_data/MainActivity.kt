@@ -35,12 +35,18 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private lateinit var uniqueUserId: EditText //Variable used to store user id
     private val requestCode= 1000
     private var acceleration= ""
+    private var accelerationX= 0.0
+    private var accelerationY= 0.0
+    private var accelerationZ= 0.0
     private var rotation= ""
+    private var rotationX= 0.0
+    private var rotationY= 0.0
+    private var rotationZ= 0.0
     private var gravity= ""
     private var magnet= ""
-    private var latitude= ""
-    private var longitude= ""
-    private var speed= ""
+    private var latitude= 0.0
+    private var longitude= 0.0
+    private var speed= 0.0
     @SuppressLint("SimpleDateFormat")
     private val formatter1 = SimpleDateFormat("dd-MM-yyyy")
     @SuppressLint("SimpleDateFormat")
@@ -56,7 +62,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             currentDate = formatter1.format(date)
             currentTime = formatter2.format(date)
             saveData()
-            handler.postDelayed(this, 1000)
+            handler.postDelayed(this, 3000)
         }
     }
 
@@ -68,6 +74,12 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                 acceleration = "x = ${event.values[0]} m/s2\n" +
                         "y = ${event.values[1]} m/s2\n" +
                         "z = ${event.values[2]} m/s2"
+                accelerationX = event.values[0].toDouble()
+                accelerationX = Math.round(accelerationX * 1000.0)/1000.0
+                accelerationY = event.values[1].toDouble()
+                accelerationY = Math.round(accelerationY * 1000.0)/1000.0
+                accelerationZ = event.values[2].toDouble()
+                accelerationZ = Math.round(accelerationZ * 1000.0)/1000.0
                 accDta.text = acceleration
             }
 
@@ -75,6 +87,12 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                 rotation = "x = ${event.values[0]} rad/s\n" +
                         "y = ${event.values[1]} rad/s \n" +
                         "z = ${event.values[2]} rad/s"
+                rotationX = event.values[0].toDouble()
+                rotationX = Math.round(rotationX * 1000.0)/1000.0
+                rotationY = event.values[1].toDouble()
+                rotationY = Math.round(rotationY * 1000.0)/1000.0
+                rotationZ = event.values[2].toDouble()
+                rotationZ = Math.round(rotationZ * 1000.0)/1000.0
                 rotDta.text = rotation
             }
             Sensor.TYPE_GRAVITY -> {
@@ -169,9 +187,9 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             override fun onLocationResult(p0: LocationResult?) {
                 /* Get Last Location*/
                 val location = p0!!.locations.get(p0!!.locations.size - 1)
-                latitude = location.latitude.toString()
-                longitude = location.longitude.toString()
-                speed = location.speed.toString()
+                latitude = location.latitude.toDouble()
+                longitude = location.longitude.toDouble()
+                speed = location.speed.toDouble()
                 gpsDta.text = "Latitude: " + latitude + "º\n" +
                         "Longitude: " + longitude + "º\n" + "Speed: " +
                         speed + "m/s\n"
@@ -213,8 +231,12 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
         val dataLineId = refDriver.push().key.toString()
 
-        val dataLine = DataLine(dataLineId, userId, acceleration, rotation, latitude,
-            longitude, speed, currentDate, currentTime)
+        val dataLine = DataLine(//dataLineId, userId,
+            accelerationX, accelerationY, accelerationZ,
+            rotationX, rotationY, rotationZ,
+            latitude, longitude,
+            //speed,
+            currentDate, currentTime)
 
         refDriver.child(dataLineId).setValue(dataLine)
 
