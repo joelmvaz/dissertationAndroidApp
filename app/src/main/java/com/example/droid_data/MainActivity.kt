@@ -54,6 +54,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private var currentDate= ""
     private var currentTime= ""
     private var userId= ""
+    private var tripId = 1
     private val handler = Handler()
     
     private val runnable = object : Runnable {
@@ -178,6 +179,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                 btnUpdates.isEnabled= false
                 btnUpdates.isInvisible= true
                 usrId.isEnabled= false
+                getDataPath()
             })
         }
     }
@@ -205,20 +207,24 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         locationRequest.smallestDisplacement= 10f
     }
 
-    private fun saveData() {
+    private fun getDataPath(){
         //if ID is empty
         if(userId == ""){
             userId = "00"
         }
 
-        val ref = FirebaseDatabase.getInstance().getReference(userId)
+        var check = 0
 
-        var tripId = 1
+        val ref = FirebaseDatabase.getInstance().getReference(userId)
 
         ref.addValueEventListener(object: ValueEventListener{
             override fun onDataChange(p0: DataSnapshot) {
                 if(p0!!.exists()){
-                    tripId = p0.children.count() + 1
+                    var trip = p0.children.count()
+                    if (check == 0){
+                        tripId = trip + 1
+                        check = 1
+                    }
                 }
             }
 
@@ -226,6 +232,10 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
         })
+
+    }
+
+    private fun saveData() {
 
         val refDriver = FirebaseDatabase.getInstance().getReference(userId + "/" +tripId)
 
