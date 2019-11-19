@@ -55,6 +55,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private var currentTime= ""
     private var userId= ""
     private var tripId = 1
+    private var check = 0
     private val handler = Handler()
     
     private val runnable = object : Runnable {
@@ -62,7 +63,13 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             val date = Date()
             currentDate = formatter1.format(date)
             currentTime = formatter2.format(date)
-            saveData()
+
+            if(check == 0){
+                saveData("starts")
+            }
+            else{
+                saveData(tripId.toString())
+            }
             handler.postDelayed(this, 3000)
         }
     }
@@ -213,8 +220,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             userId = "00"
         }
 
-        var check = 0
-
         val ref = FirebaseDatabase.getInstance().getReference(userId)
 
         ref.addValueEventListener(object: ValueEventListener{
@@ -222,7 +227,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                 if(p0!!.exists()){
                     var trip = p0.children.count()
                     if (check == 0){
-                        tripId = trip + 1
+                        tripId = trip
                         check = 1
                     }
                 }
@@ -235,9 +240,9 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
     }
 
-    private fun saveData() {
+    private fun saveData(pathId: String) {
 
-        val refDriver = FirebaseDatabase.getInstance().getReference(userId + "/" +tripId)
+        val refDriver = FirebaseDatabase.getInstance().getReference(userId + "/" + pathId)
 
         val dataLineId = refDriver.push().key.toString()
 
