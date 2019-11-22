@@ -57,7 +57,14 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private var tripId = 1
     private var check = 0
     private val handler = Handler()
-    
+    //initiate classes to calculate average values
+    private var accelerationX_aver = CalculateAverage()
+    private var accelerationY_aver = CalculateAverage()
+    private var accelerationZ_aver = CalculateAverage()
+    private var rotationX_aver = CalculateAverage()
+    private var rotationY_aver = CalculateAverage()
+    private var rotationZ_aver = CalculateAverage()
+
     private val runnable = object : Runnable {
         override fun run() {
             val date = Date()
@@ -70,7 +77,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             else{
                 saveData(tripId.toString())
             }
-            handler.postDelayed(this, 3000)
+            handler.postDelayed(this, 1000)
         }
     }
 
@@ -78,30 +85,32 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
         when (event?.sensor?.type) {
 
-            Sensor.TYPE_ACCELEROMETER -> {
-                acceleration = "x = ${event.values[0]} m/s2\n" +
-                        "y = ${event.values[1]} m/s2\n" +
-                        "z = ${event.values[2]} m/s2"
+            Sensor.TYPE_LINEAR_ACCELERATION -> {
+
                 accelerationX = event.values[0].toDouble()
-                accelerationX = Math.round(accelerationX * 1000.0)/1000.0
+                accelerationX_aver.toSum(accelerationX)
+
                 accelerationY = event.values[1].toDouble()
-                accelerationY = Math.round(accelerationY * 1000.0)/1000.0
+                accelerationY_aver.toSum(accelerationY)
+
                 accelerationZ = event.values[2].toDouble()
-                accelerationZ = Math.round(accelerationZ * 1000.0)/1000.0
-                accDta.text = acceleration
+                accelerationZ_aver.toSum(accelerationZ)
+
+
+                //acceleration = "x = ${event.values[0]} m/s2\n" +
+                //        "y = ${event.values[1]} m/s2\n" +
+                //        "z = ${event.values[2]} m/s2"
+
+                //accDta.text = acceleration
             }
 
-            Sensor.TYPE_GYROSCOPE -> {
-                rotation = "x = ${event.values[0]} rad/s\n" +
-                        "y = ${event.values[1]} rad/s \n" +
-                        "z = ${event.values[2]} rad/s"
+            Sensor.TYPE_ROTATION_VECTOR -> {
                 rotationX = event.values[0].toDouble()
-                rotationX = Math.round(rotationX * 1000.0)/1000.0
+                rotationX_aver.toSum(rotationX)
                 rotationY = event.values[1].toDouble()
-                rotationY = Math.round(rotationY * 1000.0)/1000.0
+                rotationY_aver.toSum(rotationY)
                 rotationZ = event.values[2].toDouble()
-                rotationZ = Math.round(rotationZ * 1000.0)/1000.0
-                rotDta.text = rotation
+                rotationZ_aver.toSum(rotationZ)
             }
             Sensor.TYPE_GRAVITY -> {
                 gravity = "x = ${event.values[0]} m/s\n" +
@@ -129,12 +138,12 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         sensorManager= getSystemService(Context.SENSOR_SERVICE) as SensorManager
         sensorManager.registerListener(
             this,
-            sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+            sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION),
             SensorManager.SENSOR_DELAY_NORMAL
         )
         sensorManager.registerListener(
             this,
-            sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE),
+            sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR),
             SensorManager.SENSOR_DELAY_NORMAL
         )
         sensorManager.registerListener(
@@ -246,15 +255,34 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
         val dataLineId = refDriver.push().key.toString()
 
+        //get average values and reset counters
+        val accelX = accelerationX_aver.getResult()
+        val accelY = accelerationY_aver.getResult()
+        val accelZ = accelerationZ_aver.getResult()
+        val rotX = rotationX_aver.getResult()
+        val rotY = rotationY_aver.getResult()
+        val rotZ = rotationZ_aver.getResult()
+
+        //update shown values with average
+        acceleration = "x = $accelX m/s2\n" +
+                        "y = $accelY m/s2\n" +
+                        "z = $accelZ m/s2"
+        accDta.text = acceleration
+
+        rotation = "x = $rotX rad/s\n" +
+                    "y = $rotY rad/s \n" +
+                    "z = $rotZ rad/s"
+        rotDta.text = rotation
+
         val dataLine = DataLine(//dataLineId, userId,
-            accelerationX, accelerationY, accelerationZ,
-            rotationX, rotationY, rotationZ,
+            accelX, accelY, accelZ,
+            rotX, rotY, rotZ,
             latitude, longitude,
             //speed,
             currentDate, currentTime)
 
         refDriver.child(dataLineId).setValue(dataLine)
-
-
     }
+
+
 }
