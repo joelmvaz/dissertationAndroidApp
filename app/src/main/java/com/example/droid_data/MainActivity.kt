@@ -16,7 +16,6 @@ import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_main.*
 import android.os.Handler
-import android.util.Log
 import android.widget.EditText
 import androidx.core.view.isInvisible
 import com.google.firebase.database.DataSnapshot
@@ -55,7 +54,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private var currentTime= ""
     private var userId= ""
     private var tripId = 1
-    private var check = 0
+    private var checkTrip = false
     private val handler = Handler()
     //initiate classes to calculate average values
     private var accelerationX_aver = CalculateAverage()
@@ -64,6 +63,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private var rotationX_aver = CalculateAverage()
     private var rotationY_aver = CalculateAverage()
     private var rotationZ_aver = CalculateAverage()
+    //calibration
+    private var calibration = Calibration(accelerationX_aver, accelerationY_aver, accelerationZ_aver, rotationX_aver, rotationY_aver, rotationZ_aver)
 
     private val runnable = object : Runnable {
         override fun run() {
@@ -71,7 +72,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             currentDate = formatter1.format(date)
             currentTime = formatter2.format(date)
 
-            if(check == 0){
+            if(!checkTrip){
                 saveData("starts")
             }
             else{
@@ -95,13 +96,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
                 accelerationZ = event.values[2].toDouble()
                 accelerationZ_aver.toSum(accelerationZ)
-
-
-                //acceleration = "x = ${event.values[0]} m/s2\n" +
-                //        "y = ${event.values[1]} m/s2\n" +
-                //        "z = ${event.values[2]} m/s2"
-
-                //accDta.text = acceleration
             }
 
             Sensor.TYPE_ROTATION_VECTOR -> {
@@ -233,11 +227,10 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
         ref.addValueEventListener(object: ValueEventListener{
             override fun onDataChange(p0: DataSnapshot) {
-                if(p0!!.exists()){
-                    var trip = p0.children.count()
-                    if (check == 0){
-                        tripId = trip
-                        check = 1
+                if (!checkTrip){
+                    if(p0!!.exists()) {
+                        tripId = p0.children.count()
+                        //checkTrip = true
                     }
                 }
             }
@@ -255,33 +248,47 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
         val dataLineId = refDriver.push().key.toString()
 
-        //get average values and reset counters
-        val accelX = accelerationX_aver.getResult()
-        val accelY = accelerationY_aver.getResult()
-        val accelZ = accelerationZ_aver.getResult()
-        val rotX = rotationX_aver.getResult()
-        val rotY = rotationY_aver.getResult()
-        val rotZ = rotationZ_aver.getResult()
+        if(calibration.sendDataToDB()){
+            //get average values and reset counters
+            val accelX = Math.round((accelerationX_aver.getResult() - calibration.accelerationX) * 1000.0)/1000.0
+            val accelY = Math.round((accelerationY_aver.getResult() - calibration.accelerationY) * 1000.0)/1000.0
+            val accelZ = Math.round((accelerationZ_aver.getResult() - calibration.accelerationZ) * 1000.0)/1000.0
+            val rotX = Math.round((rotationX_aver.getResult() - calibration.rotationX) * 1000.0)/1000.0
+            val rotY = Math.round((rotationY_aver.getResult() - calibration.rotationY) * 1000.0)/1000.0
+            val rotZ = Math.round((rotationZ_aver.getResult() - calibration.rotationZ) * 1000.0)/1000.0
 
-        //update shown values with average
-        acceleration = "x = $accelX m/s2\n" +
-                        "y = $accelY m/s2\n" +
-                        "z = $accelZ m/s2"
-        accDta.text = acceleration
+            //update shown values with average
+            acceleration = "x = $accelX m/s2\n" +
+                    "y = $accelY m/s2\n" +
+                    "z = $accelZ m/s2"
+            accDta.text = acceleration
 
-        rotation = "x = $rotX rad/s\n" +
+            rotation = "x = $rotX rad/s\n" +
                     "y = $rotY rad/s \n" +
                     "z = $rotZ rad/s"
-        rotDta.text = rotation
+            rotDta.text = rotation
 
-        val dataLine = DataLine(//dataLineId, userId,
-            accelX, accelY, accelZ,
-            rotX, rotY, rotZ,
-            latitude, longitude,
-            //speed,
-            currentDate, currentTime)
+            if(!checkTrip){
+                val dataLine = DataLine(calibration.accelerationX, calibration.accelerationY, calibration.accelerationZ,
+                    calibration.rotationX, calibration.rotationY, calibration.rotationZ,
+                    latitude, longitude,
+                    currentDate, currentTime)
 
-        refDriver.child(dataLineId).setValue(dataLine)
+                refDriver.child(dataLineId).setValue(dataLine)
+                checkTrip = true
+            }
+            else{
+                val dataLine = DataLine(//dataLineId, userId,
+                    accelX, accelY, accelZ,
+                    rotX, rotY, rotZ,
+                    latitude, longitude,
+                    //speed,
+                    currentDate, currentTime)
+
+                refDriver.child(dataLineId).setValue(dataLine)
+            }
+
+        }
     }
 
 

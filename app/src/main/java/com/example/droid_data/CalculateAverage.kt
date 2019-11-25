@@ -9,7 +9,7 @@ class CalculateAverage {
         result = sum / n
         sum = 0.0
         n = 0
-        return Math.round(result * 1000.0)/1000.0
+        return result
     }
 
     public fun toSum (x: Double){
