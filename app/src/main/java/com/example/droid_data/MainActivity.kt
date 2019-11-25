@@ -249,25 +249,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         val dataLineId = refDriver.push().key.toString()
 
         if(calibration.sendDataToDB()){
-            //get average values and reset counters
-            val accelX = Math.round((accelerationX_aver.getResult() - calibration.accelerationX) * 1000.0)/1000.0
-            val accelY = Math.round((accelerationY_aver.getResult() - calibration.accelerationY) * 1000.0)/1000.0
-            val accelZ = Math.round((accelerationZ_aver.getResult() - calibration.accelerationZ) * 1000.0)/1000.0
-            val rotX = Math.round((rotationX_aver.getResult() - calibration.rotationX) * 1000.0)/1000.0
-            val rotY = Math.round((rotationY_aver.getResult() - calibration.rotationY) * 1000.0)/1000.0
-            val rotZ = Math.round((rotationZ_aver.getResult() - calibration.rotationZ) * 1000.0)/1000.0
-
-            //update shown values with average
-            acceleration = "x = $accelX m/s2\n" +
-                    "y = $accelY m/s2\n" +
-                    "z = $accelZ m/s2"
-            accDta.text = acceleration
-
-            rotation = "x = $rotX rad/s\n" +
-                    "y = $rotY rad/s \n" +
-                    "z = $rotZ rad/s"
-            rotDta.text = rotation
-
             if(!checkTrip){
                 val dataLine = DataLine(calibration.accelerationX, calibration.accelerationY, calibration.accelerationZ,
                     calibration.rotationX, calibration.rotationY, calibration.rotationZ,
@@ -278,6 +259,25 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                 checkTrip = true
             }
             else{
+                //get average values and reset counters
+                val accelX = Math.round((accelerationX_aver.getResult() - calibration.accelerationX) * 1000.0)/1000.0
+                val accelY = Math.round((accelerationY_aver.getResult() - calibration.accelerationY) * 1000.0)/1000.0
+                val accelZ = Math.round((accelerationZ_aver.getResult() - calibration.accelerationZ) * 1000.0)/1000.0
+                val rotX = Math.round((rotationX_aver.getResult() - calibration.rotationX) * 1000.0)/1000.0
+                val rotY = Math.round((rotationY_aver.getResult() - calibration.rotationY) * 1000.0)/1000.0
+                val rotZ = Math.round((rotationZ_aver.getResult() - calibration.rotationZ) * 1000.0)/1000.0
+
+                //update shown values with average
+                acceleration = "x = $accelX m/s2\n" +
+                        "y = $accelY m/s2\n" +
+                        "z = $accelZ m/s2"
+                accDta.text = acceleration
+
+                rotation = "x = $rotX rad/s\n" +
+                        "y = $rotY rad/s \n" +
+                        "z = $rotZ rad/s"
+                rotDta.text = rotation
+
                 val dataLine = DataLine(//dataLineId, userId,
                     accelX, accelY, accelZ,
                     rotX, rotY, rotZ,

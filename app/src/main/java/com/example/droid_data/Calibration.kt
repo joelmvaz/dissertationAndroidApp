@@ -23,7 +23,7 @@ class Calibration (var accelX : CalculateAverage, var accelY : CalculateAverage,
             rotationY = rotY.getResult()
             rotationZ = rotZ.getResult()
             timeLeft--
-            return false
+            return true
         }
         else
             return true
