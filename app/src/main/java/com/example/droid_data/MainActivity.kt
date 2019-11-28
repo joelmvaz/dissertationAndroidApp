@@ -252,7 +252,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             if(!checkTrip){
                 val dataLine = DataLine(calibration.accelerationX, calibration.accelerationY, calibration.accelerationZ,
                     calibration.rotationX, calibration.rotationY, calibration.rotationZ,
-                    latitude, longitude,
+                    latitude, longitude, speed,
                     currentDate, currentTime)
 
                 refDriver.child(dataLineId).setValue(dataLine)
@@ -282,7 +282,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                     accelX, accelY, accelZ,
                     rotX, rotY, rotZ,
                     latitude, longitude,
-                    //speed,
+                    speed,
                     currentDate, currentTime)
 
                 refDriver.child(dataLineId).setValue(dataLine)
