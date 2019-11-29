@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                 accelerationZ_aver.toSum(accelerationZ)
             }
 
-            Sensor.TYPE_ROTATION_VECTOR -> {
+            Sensor.TYPE_GYROSCOPE -> {
                 rotationX = event.values[0].toDouble()
                 rotationX_aver.toSum(rotationX)
                 rotationY = event.values[1].toDouble()
