@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                 accelerationZ_aver.toSum(accelerationZ)
             }
 
-            Sensor.TYPE_GYROSCOPE -> {
+            Sensor.TYPE_ROTATION_VECTOR -> {
                 rotationX = event.values[0].toDouble()
                 rotationX_aver.toSum(rotationX)
                 rotationY = event.values[1].toDouble()
@@ -137,18 +137,18 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         )
         sensorManager.registerListener(
             this,
-            sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE),
+            sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR),
             SensorManager.SENSOR_DELAY_FASTEST
         )
         sensorManager.registerListener(
             this,
             sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY),
-            SensorManager.SENSOR_DELAY_FASTEST
+            SensorManager.SENSOR_DELAY_NORMAL
         )
         sensorManager.registerListener(
             this,
             sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),
-            SensorManager.SENSOR_DELAY_FASTEST
+            SensorManager.SENSOR_DELAY_NORMAL
         )
 
         /* Check Permissions For Location Services*/
