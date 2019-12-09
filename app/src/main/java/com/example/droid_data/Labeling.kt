@@ -1,10 +1,30 @@
 package com.example.droid_data
 
 class Labeling{
-    private var minLatitude = 41.17
-    private var maxLatitude = 41.18
+
+
+    /*
+                         *LongTop
+
+          *LatLeft   Porto(minLat, minLong)   *LatRight
+
+                         *LongBottom
+     */
+
+    private var minLatitude = 41.16
+    private var maxLatitudeLeftPorto = 41.111
+    private var maxLatitudeRihtPorto = 41.207
     private var minLongitude = -8.56
-    private var maxLongitude = -8.55
+    private var maxLongitudeTopPorto = -8.567
+    private var maxLongitudeBottomPorto = -8.649
+
+    private var minLatitudeGandra = 41.183
+    private var maxLatitudeLeftGandra = 41.180
+    private var maxLatitudeRihtGandra = 41.185
+    private var minLongitudeGandra = -8.445
+    private var maxLongitudeTopGandra = -8.448
+    private var maxLongitudeBottomGandra = -8.438
+
     private var maxSpeedCity = 16.7         //60km/h
     private var maxSpeedHighway = 25.0      //90km/h
     private var maxAccelCity = 1.2
@@ -95,12 +115,23 @@ class Labeling{
     private fun checkZone(latitude: Double, longitude: Double): Int{
 
         // return 0 if city, 1 if highway etc...
-
-        if (latitude > minLatitude && latitude < maxLatitude) {
-            if (longitude > minLongitude && longitude < maxLongitude) {
-                return 0
+        // Check If in Porto
+        if (latitude > maxLongitudeBottomPorto && latitude < maxLongitudeTopPorto) {
+            if (longitude > maxLatitudeRihtPorto && longitude < maxLatitudeLeftPorto) {
+                return 10 // 10 means inside Porto
             }
         }
-        return 1
+        //Check If in Gandra
+        if (latitude > maxLongitudeBottomGandra && latitude < maxLongitudeTopGandra) {
+            if (longitude > maxLatitudeRihtGandra && longitude < maxLatitudeLeftGandra) {
+                return 10 // 10 means inside Gandra
+            }
+        }
+
+        //Check that speed looks high enough > 60km.h
+        return 20 // 20 means outside Porto && outside Gandra
+
+        //else
+        return 0 // Impossible to know location
     }
 }
