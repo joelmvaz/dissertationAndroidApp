@@ -11,11 +11,11 @@ class Labeling{
                          *LongBottom
      */
 
-    private var minLatitude = 41.16
+    private var minLatitudePorto = 41.16
     private var maxLatitudeLeftPorto = 41.111
     private var maxLatitudeRihtPorto = 41.207
-    private var minLongitude = -8.56
-    private var maxLongitudeTopPorto = -8.567
+    private var minLongitudePorto = -8.56
+    private var maxLongitudeTopPorto = -8.555
     private var maxLongitudeBottomPorto = -8.649
 
     private var minLatitudeGandra = 41.183
@@ -24,6 +24,13 @@ class Labeling{
     private var minLongitudeGandra = -8.445
     private var maxLongitudeTopGandra = -8.448
     private var maxLongitudeBottomGandra = -8.438
+
+    private var minLatitudeValongo = 41.189
+    private var maxLatitudeLeftValongo = 41.183
+    private var maxLatitudeRihtValongo = 41.93
+    private var minLongitudeValongo = -8.499
+    private var maxLongitudeTopValongo = -8.496
+    private var maxLongitudeBottomValongo = -8.501
 
     private var maxSpeedCity = 16.7         //60km/h
     private var maxSpeedHighway = 25.0      //90km/h
@@ -124,12 +131,19 @@ class Labeling{
         //Check If in Gandra
         if (latitude > maxLongitudeBottomGandra && latitude < maxLongitudeTopGandra) {
             if (longitude > maxLatitudeRihtGandra && longitude < maxLatitudeLeftGandra) {
-                return 10 // 10 means inside Gandra
+                return 20 // 20 means inside Gandra
+            }
+        }
+
+        //Check If in Valongo
+        if (latitude > maxLongitudeBottomValongo && latitude < maxLongitudeTopValongo) {
+            if (longitude > maxLatitudeRihtValongo && longitude < maxLatitudeLeftValongo) {
+                return 30 // 30 means inside Valongo
             }
         }
 
         //Check that speed looks high enough > 60km.h
-        return 20 // 20 means outside Porto && outside Gandra
+        return 40 // 40 means outside Porto && outside Gandra
 
         //else
         return 0 // Impossible to know location
