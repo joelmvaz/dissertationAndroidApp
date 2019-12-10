@@ -3,6 +3,15 @@ package com.example.droid_data
 class City(val name: String, val latitudeCentral: Double, val longitudeCentral: Double,
            val latitudeLeft: Double, val latitudeRight: Double,
            val longitudeTop: Double, val longitudeBottom: Double) {
+
+    /*
+                     *LongTop
+
+      *LatLeft   Porto(latCentral, longCentral)   *LatRight
+
+                     *LongBottom
+ */
+
     public var CityName = name
     private var latCentral = latitudeCentral
     private var longCentral = longitudeCentral

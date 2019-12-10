@@ -3,18 +3,12 @@ package com.example.droid_data
 class Labeling{
 
 
-    /*
-                         *LongTop
 
-          *LatLeft   Porto(minLat, minLong)   *LatRight
-
-                         *LongBottom
-     */
 
     private val cities = listOf(
         City("Porto", 41.16, -8.555,
-        41.111, 41.207,
-        -8.555, -8.649),
+            41.111, 41.207,
+            -8.555, -8.649),
         City("Gandra", 41.183, -8.445,
             41.180, 41.185,
             -8.438, -8.448),
