@@ -11,26 +11,17 @@ class Labeling{
                          *LongBottom
      */
 
-    private var LatitudePorto = 41.16
-    private var LatitudeLeftPorto = 41.111
-    private var LatitudeRightPorto = 41.207
-    private var LongitudePorto = -8.56
-    private var LongitudeTopPorto = -8.555
-    private var LongitudeBottomPorto = -8.649
-
-    private var LatitudeGandra = 41.183
-    private var LatitudeLeftGandra = 41.180
-    private var LatitudeRightGandra = 41.185
-    private var LongitudeGandra = -8.445
-    private var LongitudeTopGandra = -8.448
-    private var LongitudeBottomGandra = -8.438
-
-    private var LatitudeValongo = 41.189
-    private var LatitudeLeftValongo = 41.183
-    private var LatitudeRightValongo = 41.93
-    private var LongitudeValongo = -8.499
-    private var LongitudeTopValongo = -8.496
-    private var LongitudeBottomValongo = -8.501
+    private val cities = listOf(
+        City("Porto", 41.16, -8.555,
+        41.111, 41.207,
+        -8.555, -8.649),
+        City("Gandra", 41.183, -8.445,
+            41.180, 41.185,
+            -8.438, -8.448),
+        City("Valongo", 41.189, -8.499,
+            41.183, 41.93,
+            -8.496, -8.501)
+        )
 
     private var maxSpeedCity = 16.7         //60km/h
     private var maxSpeedHighway = 25.0      //90km/h
@@ -57,13 +48,13 @@ class Labeling{
         return label
     }
 
-    private fun checkAcceleration(acceleration: Double, zone: Int): Int{
+    private fun checkAcceleration(acceleration: Double, zone: Boolean): Int{
 
         // call checkZone to know if it's city or highway
         // check if this acceleration is ok for this zone
         // return points (i.e. 0 - ok, 1 - higher than normal but not critical, 2 - bad, 3 - crazy idiot...)
 
-        if (zone == 0){
+        if (zone){
             if (acceleration <= maxAccelCity){
                 return 0
             }
@@ -74,7 +65,7 @@ class Labeling{
                 return 2
             }
         }
-        else if (zone == 1){
+        else if (!zone){
             if (acceleration <= maxAccelHighway){
                 return 0
             }
@@ -88,13 +79,13 @@ class Labeling{
         return 3
     }
 
-    private fun checkSpeed(speed: Double, zone: Int): Int{
+    private fun checkSpeed(speed: Double, zone: Boolean): Int{
 
         // call checkZone to know if it's city or highway
         // check if this speed is ok for this zone
         // return points (i.e. 0 - ok, 1 - higher than normal but not critical, 2 - bad, 3 - crazy idiot...)
 
-        if (zone == 0){
+        if (zone){
             if (speed <= maxSpeedCity){
                 return 0
             }
@@ -105,7 +96,7 @@ class Labeling{
                 return 2
             }
         }
-        else if (zone == 1){
+        else if (!zone){
             if (speed <= maxSpeedHighway){
                 return 0
             }
@@ -119,30 +110,13 @@ class Labeling{
         return 3
     }
 
-    private fun checkZone(latitude: Double, longitude: Double): Int{
+    private fun checkZone(latitude: Double, longitude: Double): Boolean{
 
-        // return 0 if city, 1 if highway etc...
-        // Check If in Porto
-        if (latitude > LongitudeBottomPorto && latitude < LongitudeTopPorto) {
-            if (longitude > LatitudeLeftPorto && longitude < LatitudeRightPorto) {
-                return 10 // 10 means inside Porto
+        for (city in cities){
+            if (city.inCity(latitude, longitude)){
+                return true
             }
         }
-        //Check If in Gandra
-        if (latitude > LongitudeBottomGandra && latitude < LongitudeTopGandra) {
-            if (longitude > LatitudeLeftGandra && longitude < LatitudeRightGandra) {
-                return 20 // 20 means inside Gandra
-            }
-        }
-
-        //Check If in Valongo
-        if (latitude > LongitudeBottomValongo && latitude < LongitudeTopValongo) {
-            if (longitude > LatitudeLeftValongo && longitude < LatitudeRightValongo) {
-                return 30 // 30 means inside Valongo
-            }
-        }
-
-        //else
-        return 0 // Outside City
+        return false
     }
 }
