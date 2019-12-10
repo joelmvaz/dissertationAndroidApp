@@ -13,21 +13,21 @@ class Labeling{
 
     private var LatitudePorto = 41.16
     private var LatitudeLeftPorto = 41.111
-    private var LatitudeRihtPorto = 41.207
+    private var LatitudeRightPorto = 41.207
     private var LongitudePorto = -8.56
     private var LongitudeTopPorto = -8.555
     private var LongitudeBottomPorto = -8.649
 
     private var LatitudeGandra = 41.183
     private var LatitudeLeftGandra = 41.180
-    private var LatitudeRihtGandra = 41.185
+    private var LatitudeRightGandra = 41.185
     private var LongitudeGandra = -8.445
     private var LongitudeTopGandra = -8.448
     private var LongitudeBottomGandra = -8.438
 
     private var LatitudeValongo = 41.189
     private var LatitudeLeftValongo = 41.183
-    private var LatitudeRihtValongo = 41.93
+    private var LatitudeRightValongo = 41.93
     private var LongitudeValongo = -8.499
     private var LongitudeTopValongo = -8.496
     private var LongitudeBottomValongo = -8.501
@@ -124,28 +124,25 @@ class Labeling{
         // return 0 if city, 1 if highway etc...
         // Check If in Porto
         if (latitude > LongitudeBottomPorto && latitude < LongitudeTopPorto) {
-            if (longitude > LatitudeRihtPorto && longitude < LatitudeLeftPorto) {
+            if (longitude > LatitudeLeftPorto && longitude < LatitudeRightPorto) {
                 return 10 // 10 means inside Porto
             }
         }
         //Check If in Gandra
         if (latitude > LongitudeBottomGandra && latitude < LongitudeTopGandra) {
-            if (longitude > LatitudeRihtGandra && longitude < LatitudeLeftGandra) {
+            if (longitude > LatitudeLeftGandra && longitude < LatitudeRightGandra) {
                 return 20 // 20 means inside Gandra
             }
         }
 
         //Check If in Valongo
         if (latitude > LongitudeBottomValongo && latitude < LongitudeTopValongo) {
-            if (longitude > LatitudeRihtValongo && longitude < LatitudeLeftValongo) {
+            if (longitude > LatitudeLeftValongo && longitude < LatitudeRightValongo) {
                 return 30 // 30 means inside Valongo
             }
         }
 
-        //Check that speed looks high enough > 60km.h
-        return 40 // 40 means outside Porto && outside Gandra
-
         //else
-        return 0 // Impossible to know location
+        return 0 // Outside City
     }
 }
