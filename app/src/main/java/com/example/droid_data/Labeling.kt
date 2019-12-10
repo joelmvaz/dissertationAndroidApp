@@ -11,26 +11,26 @@ class Labeling{
                          *LongBottom
      */
 
-    private var minLatitudePorto = 41.16
-    private var maxLatitudeLeftPorto = 41.111
-    private var maxLatitudeRihtPorto = 41.207
-    private var minLongitudePorto = -8.56
-    private var maxLongitudeTopPorto = -8.555
-    private var maxLongitudeBottomPorto = -8.649
+    private var LatitudePorto = 41.16
+    private var LatitudeLeftPorto = 41.111
+    private var LatitudeRihtPorto = 41.207
+    private var LongitudePorto = -8.56
+    private var LongitudeTopPorto = -8.555
+    private var LongitudeBottomPorto = -8.649
 
-    private var minLatitudeGandra = 41.183
-    private var maxLatitudeLeftGandra = 41.180
-    private var maxLatitudeRihtGandra = 41.185
-    private var minLongitudeGandra = -8.445
-    private var maxLongitudeTopGandra = -8.448
-    private var maxLongitudeBottomGandra = -8.438
+    private var LatitudeGandra = 41.183
+    private var LatitudeLeftGandra = 41.180
+    private var LatitudeRihtGandra = 41.185
+    private var LongitudeGandra = -8.445
+    private var LongitudeTopGandra = -8.448
+    private var LongitudeBottomGandra = -8.438
 
-    private var minLatitudeValongo = 41.189
-    private var maxLatitudeLeftValongo = 41.183
-    private var maxLatitudeRihtValongo = 41.93
-    private var minLongitudeValongo = -8.499
-    private var maxLongitudeTopValongo = -8.496
-    private var maxLongitudeBottomValongo = -8.501
+    private var LatitudeValongo = 41.189
+    private var LatitudeLeftValongo = 41.183
+    private var LatitudeRihtValongo = 41.93
+    private var LongitudeValongo = -8.499
+    private var LongitudeTopValongo = -8.496
+    private var LongitudeBottomValongo = -8.501
 
     private var maxSpeedCity = 16.7         //60km/h
     private var maxSpeedHighway = 25.0      //90km/h
@@ -123,21 +123,21 @@ class Labeling{
 
         // return 0 if city, 1 if highway etc...
         // Check If in Porto
-        if (latitude > maxLongitudeBottomPorto && latitude < maxLongitudeTopPorto) {
-            if (longitude > maxLatitudeRihtPorto && longitude < maxLatitudeLeftPorto) {
+        if (latitude > LongitudeBottomPorto && latitude < LongitudeTopPorto) {
+            if (longitude > LatitudeRihtPorto && longitude < LatitudeLeftPorto) {
                 return 10 // 10 means inside Porto
             }
         }
         //Check If in Gandra
-        if (latitude > maxLongitudeBottomGandra && latitude < maxLongitudeTopGandra) {
-            if (longitude > maxLatitudeRihtGandra && longitude < maxLatitudeLeftGandra) {
+        if (latitude > LongitudeBottomGandra && latitude < LongitudeTopGandra) {
+            if (longitude > LatitudeRihtGandra && longitude < LatitudeLeftGandra) {
                 return 20 // 20 means inside Gandra
             }
         }
 
         //Check If in Valongo
-        if (latitude > maxLongitudeBottomValongo && latitude < maxLongitudeTopValongo) {
-            if (longitude > maxLatitudeRihtValongo && longitude < maxLatitudeLeftValongo) {
+        if (latitude > LongitudeBottomValongo && latitude < LongitudeTopValongo) {
+            if (longitude > LatitudeRihtValongo && longitude < LatitudeLeftValongo) {
                 return 30 // 30 means inside Valongo
             }
         }
