@@ -65,6 +65,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private var rotationZ_aver = CalculateAverage()
     //calibration
     private var calibration = Calibration(accelerationX_aver, accelerationY_aver, accelerationZ_aver, rotationX_aver, rotationY_aver, rotationZ_aver)
+    //labeling
+    private var labeling = Labeling()
 
     private val runnable = object : Runnable {
         override fun run() {
@@ -253,7 +255,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                 val dataLine = DataLine(calibration.accelerationX, calibration.accelerationY, calibration.accelerationZ,
                     calibration.rotationX, calibration.rotationY, calibration.rotationZ,
                     latitude, longitude, speed,
-                    currentDate, currentTime)
+                    currentDate, currentTime, "")
 
                 refDriver.child(dataLineId).setValue(dataLine)
                 checkTrip = true
@@ -278,12 +280,14 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                         "z = $rotZ rad/s"
                 rotDta.text = rotation
 
+                val label = labeling.getLabel(accelY, speed, latitude, longitude)
+
                 val dataLine = DataLine(//dataLineId, userId,
                     accelX, accelY, accelZ,
                     rotX, rotY, rotZ,
                     latitude, longitude,
                     speed,
-                    currentDate, currentTime)
+                    currentDate, currentTime, label)
 
                 refDriver.child(dataLineId).setValue(dataLine)
             }

@@ -2,9 +2,6 @@ package com.example.droid_data
 
 class Labeling{
 
-
-
-
     private val cities = listOf(
         City("Porto", 41.16, -8.555,
             41.111, 41.207,
@@ -19,8 +16,8 @@ class Labeling{
 
     private var maxSpeedCity = 16.7         //60km/h
     private var maxSpeedHighway = 25.0      //90km/h
-    private var maxAccelCity = 1.2
-    private var maxAccelHighway = 2.0
+    private var maxAccelCity = 1.9
+    private var maxAccelHighway = 2.5
 
     public fun getLabel(acceleration: Double, speed: Double, latitude: Double, longitude: Double): String{
 
