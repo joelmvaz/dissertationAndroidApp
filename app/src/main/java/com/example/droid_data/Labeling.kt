@@ -40,7 +40,6 @@ class Labeling{
     }
 
     private fun checkAcceleration(acceleration: Double, zone: Boolean): Int{
-
         // call checkZone to know if it's city or highway
         // check if this acceleration is ok for this zone
         // return points (i.e. 0 - ok, 1 - higher than normal but not critical, 2 - bad, 3 - crazy idiot...)
