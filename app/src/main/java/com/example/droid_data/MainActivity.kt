@@ -3,6 +3,7 @@ package com.example.droid_data
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.hardware.Sensor
 import android.hardware.SensorEvent
@@ -129,6 +130,12 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        btnStop.setOnClickListener {
+            val intent = Intent(this, TripReview::class.java)
+            // start your next activity
+            startActivity(intent)
+        }
 
         uniqueUserId= findViewById(R.id.usrId)
         sensorManager= getSystemService(Context.SENSOR_SERVICE) as SensorManager

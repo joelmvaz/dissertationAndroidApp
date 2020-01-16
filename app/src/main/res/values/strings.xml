@@ -15,5 +15,6 @@
     <string name="gps_value">Location Data</string>
     <string name="driver_id">Insert id</string>
     <string name="stopData">Stop Trip</string>
+    <string name="btnExitString">Back to main screen</string>
 
 </resources>
