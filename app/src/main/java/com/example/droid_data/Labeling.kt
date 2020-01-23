@@ -3,6 +3,7 @@ package com.example.droid_data
 class Labeling{
 
     private val cities = listOf(
+        //TODO add more cities to list or implement other logic
         City("Porto", 41.16, -8.555,
             41.111, 41.207,
             -8.555, -8.649),

@@ -57,6 +57,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private var tripId = 1
     private var checkTrip = false
     private val handler = Handler()
+    private var dbStop = 0
     //initiate classes to calculate average values
     private var accelerationX_aver = CalculateAverage()
     private var accelerationY_aver = CalculateAverage()
@@ -134,6 +135,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         btnStop.setOnClickListener {
             val intent = Intent(this, TripReview::class.java)
             // start your next activity
+            dbStop= 1
+            finishAffinity()
             startActivity(intent)
         }
 
@@ -229,7 +232,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private fun getDataPath(){
         //if ID is empty
         if(userId == ""){
-            userId = "00"
+            userId = "000"
         }
 
         val ref = FirebaseDatabase.getInstance().getReference(userId)
@@ -257,7 +260,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
         val dataLineId = refDriver.push().key.toString()
 
-        if(calibration.sendDataToDB()){
+        if(calibration.sendDataToDB() && dbStop==0){
             if(!checkTrip){
                 val dataLine = DataLine(calibration.accelerationX, calibration.accelerationY, calibration.accelerationZ,
                     calibration.rotationX, calibration.rotationY, calibration.rotationZ,
