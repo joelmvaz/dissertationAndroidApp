@@ -1,5 +1,7 @@
 package com.example.droid_data
 
+import kotlin.math.abs
+
 class Labeling{
 
     private val cities = listOf(
@@ -48,24 +50,24 @@ class Labeling{
         // return points (i.e. 0 - ok, 1 - higher than normal but not critical, 2 - bad, 3 - crazy idiot...)
 
         if (zone){
-            if (acceleration <= maxAccelCity){
+            if ( abs(acceleration) <= maxAccelCity){
                 return 0
             }
-            else if (acceleration <= (maxAccelCity + 0.5)){
+            else if ( abs(acceleration) <= (maxAccelCity + 0.5)){
                 return 1
             }
-            else if (acceleration <= (maxAccelCity + 1.0)) {
+            else if ( abs(acceleration) <= (maxAccelCity + 1.0)) {
                 return 2
             }
         }
         else if (!zone){
-            if (acceleration <= maxAccelHighway){
+            if ( abs(acceleration) <= maxAccelHighway){
                 return 0
             }
-            else if (acceleration <= (maxAccelHighway + 0.5)){
+            else if ( abs(acceleration) <= (maxAccelHighway + 0.5)){
                 return 1
             }
-            else if (acceleration <= (maxAccelHighway + 1.0)) {
+            else if ( abs(acceleration) <= (maxAccelHighway + 1.0)) {
                 return 2
             }
         }
