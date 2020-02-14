@@ -17,6 +17,7 @@ import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_main.*
 import android.os.Handler
+import android.os.Parcelable
 import android.widget.EditText
 import androidx.core.view.isInvisible
 import com.google.firebase.database.DataSnapshot
@@ -25,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(), SensorEventListener {
 
@@ -69,6 +71,15 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private var calibration = Calibration(accelerationX_aver, accelerationY_aver, accelerationZ_aver, rotationX_aver, rotationY_aver, rotationZ_aver)
     //labeling
     private var labeling = Labeling()
+    private var labelLst = arrayListOf<String>()
+
+    private var labelGood=0
+    private var labelOk=0
+    private var labelDangerous=0
+    private var labelCriminal=0
+    private var labelTotal=0
+
+
 
     private val runnable = object : Runnable {
         override fun run() {
@@ -134,6 +145,12 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
         btnStop.setOnClickListener {
             val intent = Intent(this, TripReview::class.java)
+            intent.putExtra("labelOk", labelOk)
+            intent.putExtra("labelGood", labelGood)
+            intent.putExtra("labelDangerous", labelDangerous)
+            intent.putExtra("labelCriminal", labelCriminal)
+            intent.putExtra("labelTotal", labelTotal)
+
             // start your next activity
             dbStop= 1
             finishAffinity()
@@ -291,6 +308,22 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                 rotDta.text = rotation
 
                 val label = labeling.getLabel(accelY, speed, latitude, longitude)
+                if (label == "good"){
+                    labelGood++
+                    labelTotal++
+                }
+                else if (label == "ok"){
+                    labelOk++
+                    labelTotal++
+                }
+                else if (label == "dangerous"){
+                    labelDangerous++
+                    labelTotal++
+                }
+                else if (label == "criminal"){
+                    labelCriminal++
+                    labelTotal++
+                }
 
                 val dataLine = DataLine(//dataLineId, userId,
                     accelX, accelY, accelZ,

@@ -15,10 +15,10 @@ class Labeling{
             -8.496, -8.501)
         )
 
-    private var maxSpeedCity = 16.7         //60km/h
+    private var maxSpeedCity = 15  //50km.h //16.7         //60km/h
     private var maxSpeedHighway = 25.0      //90km/h
-    private var maxAccelCity = 1.9
-    private var maxAccelHighway = 2.5
+    private var maxAccelCity = 1.75 //https://fdotwww.blob.core.windows.net/sitefinity/docs/default-source/content/rail/publications/studies/safety/accelerationresearch.pdf?sfvrsn=716a4bb1_0
+    private var maxAccelHighway = 1.85 //https://fdotwww.blob.core.windows.net/sitefinity/docs/default-source/content/rail/publications/studies/safety/accelerationresearch.pdf?sfvrsn=716a4bb1_0
 
     public fun getLabel(acceleration: Double, speed: Double, latitude: Double, longitude: Double): String{
 
@@ -34,7 +34,9 @@ class Labeling{
         else if (sum == 1)
             label = "ok"
         else if (sum == 2)
-            label = "something"
+            label = "dangerous"
+        else if (sum == 3)
+            label = "criminal"
         //and more labels for different options
 
         return label
