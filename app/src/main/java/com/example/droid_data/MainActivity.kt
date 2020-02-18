@@ -208,7 +208,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                     locationRequest,
                     locationCallback, Looper.myLooper())
 
-                handler.postDelayed(runnable, 1000)
+                handler.postDelayed(runnable, 750)
 
                 //Save user Input id
                 userId= uniqueUserId.text.toString()

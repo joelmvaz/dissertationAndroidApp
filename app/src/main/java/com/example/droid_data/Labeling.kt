@@ -53,10 +53,10 @@ class Labeling{
             if ( abs(acceleration) <= maxAccelCity){
                 return 0
             }
-            else if ( abs(acceleration) <= (maxAccelCity + 0.5)){
+            else if ( abs(acceleration) <= (maxAccelCity + 0.25)){
                 return 1
             }
-            else if ( abs(acceleration) <= (maxAccelCity + 1.0)) {
+            else if ( abs(acceleration) <= (maxAccelCity + 0.75)) {
                 return 2
             }
         }
@@ -84,10 +84,10 @@ class Labeling{
             if (speed <= maxSpeedCity){
                 return 0
             }
-            else if (speed <= (maxSpeedCity + 2.0)){
+            else if (speed <= (maxSpeedCity + 7.5)){
                 return 1
             }
-            else if (speed <= (maxSpeedCity + 5.0)) {
+            else if (speed <= (maxSpeedCity + 10.0)) {
                 return 2
             }
         }
@@ -95,10 +95,10 @@ class Labeling{
             if (speed <= maxSpeedHighway){
                 return 0
             }
-            else if (speed <= (maxSpeedHighway + 2.0)){
+            else if (speed <= (maxSpeedHighway + 15.0)){
                 return 1
             }
-            else if (speed <= (maxSpeedHighway + 5.0)) {
+            else if (speed <= (maxSpeedHighway + 25.0)) {
                 return 2
             }
         }

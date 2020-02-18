@@ -78,8 +78,8 @@
 
     <TextView
         android:id="@+id/classificationView"
-        android:layout_width="150dp"
-        android:layout_height="60dp"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/muli_bold"
         android:text="Classification"
@@ -108,7 +108,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="450dp"
         android:fontFamily="@font/muli_bold"
-        android:text="Moderate Overspeed"
+        android:text="Moderate Overspeed "
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -120,7 +120,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="500dp"
         android:fontFamily="@font/muli_bold"
-        android:text="Extreme Overspeed"
+        android:text="High Overspeed"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
